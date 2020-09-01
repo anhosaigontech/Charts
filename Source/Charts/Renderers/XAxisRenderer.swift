@@ -201,7 +201,7 @@ open class XAxisRenderer: AxisRendererBase
             var labelAttrs: [NSAttributedString.Key : Any] = [:]
             if i < xAxis.labelTextColors.count {
                 labelAttrs = [
-                    .font: xAxis.labelFont,
+                    .font: xAxis.labelFonts[i],
                     .foregroundColor: xAxis.labelTextColors[i],
                     .paragraphStyle: paraStyle
                 ]
