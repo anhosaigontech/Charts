@@ -377,6 +377,15 @@ open class YAxisRenderer: AxisRendererBase
                             y: position.y - yOffset),
                         align: .left,
                         attributes: [NSAttributedString.Key.font: l.valueFont, NSAttributedString.Key.foregroundColor: l.valueTextColor])
+                } else if l.labelPosition == .centerRight {
+                    ChartUtils.drawText(context: context,
+                    text: label,
+                    point: CGPoint(
+                        x: viewPortHandler.contentRight - xOffset,
+                        y: position.y + yOffset - labelLineHeight),
+                    align: .right,
+                    attributes: [NSAttributedString.Key.font: l.valueFont, NSAttributedString.Key.foregroundColor: l.valueTextColor],
+                    backgroundColor: l.valueBackgroundColor)
                 }
                 else
                 {

@@ -24,6 +24,7 @@ open class ChartLimitLine: ComponentBase
         case topRight
         case bottomLeft
         case bottomRight
+        case centerRight
     }
     
     /// limit / maximum (the y-value or xIndex)
@@ -35,6 +36,7 @@ open class ChartLimitLine: ComponentBase
     @objc open var lineDashLengths: [CGFloat]?
     
     @objc open var valueTextColor = NSUIColor.labelOrBlack
+    @objc open var valueBackgroundColor = NSUIColor.clear
     @objc open var valueFont = NSUIFont.systemFont(ofSize: 13.0)
     
     @objc open var drawLabelEnabled = true

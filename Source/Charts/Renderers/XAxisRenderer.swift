@@ -425,7 +425,8 @@ open class XAxisRenderer: AxisRendererBase
             )
             align = .left
 
-        case .bottomRight:
+        case .bottomRight,
+             .centerRight:
             point = CGPoint(
                 x: position.x + xOffset,
                 y: viewPortHandler.contentBottom - labelLineHeight - yOffset
