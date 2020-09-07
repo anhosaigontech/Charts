@@ -171,7 +171,7 @@ open class ChartUtils
         NSUIGraphicsPopContext()
     }
     
-    open class func drawText(context: CGContext, text: String, point: CGPoint, align: NSTextAlignment, attributes: [NSAttributedString.Key : Any]?, backgroundColor: UIColor? = nil)
+    open class func drawText(context: CGContext, text: String, point: CGPoint, align: NSTextAlignment, attributes: [NSAttributedString.Key : Any]?, backgroundColor: UIColor? = nil, maxSizeLabel: CGSize? = nil)
     {
         var point = point
         let textSize = text.size(withAttributes: attributes)
@@ -186,8 +186,8 @@ open class ChartUtils
         
         NSUIGraphicsPushContext(context)
         
-        if let backgroundColor = backgroundColor {
-            let rect = CGRect(x: point.x - 3, y: point.y - 3, width: textSize.width + 6, height: textSize.height + 6)
+        if let backgroundColor = backgroundColor, let maxSizeLabel = maxSizeLabel {
+            let rect = CGRect(x: point.x - 3, y: point.y - 3, width: maxSizeLabel.width + 6, height: maxSizeLabel.height + 6)
             let bezierPath = UIBezierPath(roundedRect: rect, cornerRadius: rect.height/2)
             context.addPath(bezierPath.cgPath)
             context.setFillColor(backgroundColor.cgColor)

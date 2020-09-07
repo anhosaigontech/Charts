@@ -294,6 +294,21 @@ open class YAxisRenderer: AxisRendererBase
             return
         }
         
+        let maxSizeLabel = limitLines.sorted { (line1, line2) -> Bool in
+            let attributtes1 = [NSAttributedString.Key.font: line1.valueFont, NSAttributedString.Key.foregroundColor: line1.valueTextColor]
+            let sizeLine1 = line1.label.size(withAttributes: attributtes1)
+            
+            let attributtes2 = [NSAttributedString.Key.font: line2.valueFont, NSAttributedString.Key.foregroundColor: line2.valueTextColor]
+            let sizeLine2 = line1.label.size(withAttributes: attributtes2)
+            
+            return sizeLine1.width > sizeLine2.width
+        }
+        .first
+            .map { $0.label.size(withAttributes: [NSAttributedString.Key.font: $0.valueFont,
+                                                  NSAttributedString.Key.foregroundColor: $0.valueTextColor])
+                
+            }
+        
         context.saveGState()
         
         let trans = transformer.valueToPixelMatrix
@@ -385,7 +400,8 @@ open class YAxisRenderer: AxisRendererBase
                         y: position.y + yOffset - labelLineHeight),
                     align: .right,
                     attributes: [NSAttributedString.Key.font: l.valueFont, NSAttributedString.Key.foregroundColor: l.valueTextColor],
-                    backgroundColor: l.valueBackgroundColor)
+                    backgroundColor: l.valueBackgroundColor,
+                    maxSizeLabel: maxSizeLabel)
                 }
                 else
                 {
