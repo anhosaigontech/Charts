@@ -186,8 +186,8 @@ open class ChartUtils
         
         NSUIGraphicsPushContext(context)
         
-        if let backgroundColor = backgroundColor, let maxSizeLabel = maxSizeLabel {
-            let rect = CGRect(x: point.x - 3, y: point.y - 3, width: maxSizeLabel.width + 6, height: maxSizeLabel.height + 6)
+        if let backgroundColor = backgroundColor {
+            let rect = CGRect(x: point.x - 5, y: point.y - 3, width: textSize.width + 10, height: textSize.height + 6)
             let bezierPath = UIBezierPath(roundedRect: rect, cornerRadius: rect.height/2)
             context.addPath(bezierPath.cgPath)
             context.setFillColor(backgroundColor.cgColor)

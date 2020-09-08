@@ -309,6 +309,12 @@ open class YAxisRenderer: AxisRendererBase
                 
             }
         
+        let maxLabelText = limitLines.sorted(by: { (line1, line2) -> Bool in
+            return line1.label.count > line2.label.count
+        })
+            .first
+            .map { $0.label }
+        
         context.saveGState()
         
         let trans = transformer.valueToPixelMatrix
@@ -353,7 +359,12 @@ open class YAxisRenderer: AxisRendererBase
             
             context.strokePath()
             
-            let label = l.label
+            var label = l.label
+            if l.labelPosition == .centerRight, let numberMaxLabelText = maxLabelText?.count, l.label.count < numberMaxLabelText {
+                for _ in 0..<(numberMaxLabelText - l.label.count) {
+                    label.append(" ")
+                }
+            }
             
             // if drawing the limit-value label is enabled
             if l.drawLabelEnabled && label.count > 0
@@ -397,7 +408,7 @@ open class YAxisRenderer: AxisRendererBase
                     text: label,
                     point: CGPoint(
                         x: viewPortHandler.contentRight - xOffset,
-                        y: position.y + yOffset - labelLineHeight),
+                        y: position.y - labelLineHeight/2),
                     align: .right,
                     attributes: [NSAttributedString.Key.font: l.valueFont, NSAttributedString.Key.foregroundColor: l.valueTextColor],
                     backgroundColor: l.valueBackgroundColor,
